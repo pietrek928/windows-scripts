@@ -1,0 +1,30 @@
+# apt-cyg
+wget https://raw.githubusercontent.com/transcode-open/apt-cyg/master/apt-cyg && chmod +x apt-cyg && mv apt-cyg /usr/local/bin/
+apt-cyg install gcc-core gcc-g++
+
+# TUNNEL account
+mkdir -p /home/SYSTEM/.ssh
+ssh-keygen -t ecdsa -b 521 -f /home/SYSTEM/.ssh/id_ecdsa
+
+# USER account
+mkdir -p ~/.ssh
+vim ~/.ssh/authorized_keys
+
+# Tunnel service
+cygrunsrv.exe -I ssh-forward -p /usr/bin/ssh.exe -a "-v -N -o ExitOnForwardFailure=yes forwarder@elektroinf.eu -p 17683 -R 34378:127.0.0.1:22"
+
+# Setup python by gui
+
+# CUDA
+# https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html
+pythonw -m venv py39
+py39/Scripts/python -m pip install --upgrade pip wheel setuptools ipython
+py39/Scripts/ipython
+pip install nvidia-pyindex
+pip install nvidia-cuda-runtime-cu113
+pip install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio===0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+
+# HIBERNATION
+powercfg.exe /hibernate on
+powercfg.exe /hibernate off
+
