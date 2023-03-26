@@ -29,3 +29,5 @@ powershell -command "Get-appxpackage -allusers *soundrecorder* | Remove-AppxPack
 powershell -command "Get-appxpackage -allusers *bingweather* | Remove-AppxPackage"
 powershell -command "Get-appxpackage -allusers *xboxapp* | Remove-AppxPackage"
 powershell -command "Get-appxpackage -allusers *XboxOneSmartGlass* | Remove-AppxPackage"
+Dism /online /Disable-Feature /FeatureName:Windows-Defender /Remove /NoRestart /quiet
+
