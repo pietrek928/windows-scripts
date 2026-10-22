@@ -1,194 +1,194 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BthAvctpSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BthAvctpSvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\DPS]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\DPS]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdiServiceHost]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdiServiceHost]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdiSystemHost]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdiSystemHost]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\DispBrokerDesktopSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\DispBrokerDesktopSvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TrkWks]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TrkWks]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MapsBroker]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MapsBroker]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\lfsvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\gpsvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\gpsvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\iphlpsvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\iphlpsvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wlidsvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wlidsvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NcbService]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NcbService]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\OneSyncSvc_2a83e]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\OneSyncSvc_2a83e]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SEMgrSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SEMgrSvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PimIndexMaintenanceSvc_2a83e]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\PimIndexMaintenanceSvc_2a83e]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Power]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Power]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PcaSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\PcaSvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasMan]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\RasMan]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SessionEnv]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SessionEnv]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TermService]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UmRdpService]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\UmRdpService]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RetailDemo]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\RetailDemo]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SstpSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SstpSvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wscsvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wscsvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SSDPSRV]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SgrmBroker]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SgrmBroker]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UnistoreSvc_2a83e]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\UnistoreSvc_2a83e]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UsoSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\UsoSvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\upnphost]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\upnphost]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\LanmanWorkstation]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SecurityHealthService]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SecurityHealthService]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WpnService]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WpnService]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LicenseManager]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\LicenseManager]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mpssvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\mpssvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinDefend]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WinDefend]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WSearch]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WSearch]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WbioSrvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WbioSrvc]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Spooler]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\LanmanServer]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AudioEndpointBuilder]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\AudioEndpointBuilder]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Audiosrv]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Audiosrv]
 "Start"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BITS]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BITS]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BFE]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BFE]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventSystem]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\EventSystem]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\VaultSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\VaultSvc]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\CryptSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\CryptSvc]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Dnscache]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\netprofm]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\netprofm]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NlaSvc]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nsi]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\nsi]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Wcmsvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Wcmsvc]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RpcSs]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\RpcSs]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RpcEptMapper]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\RpcEptMapper]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SamSs]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SamSs]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\sppsvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\sppsvc]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\StateRepository]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\StateRepository]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SENS]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SENS]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SystemEventsBroker]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SystemEventsBroker]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Schedule]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Schedule]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Winmgmt]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Winmgmt]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FontCache]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FontCache]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\EventLog]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ClipSVC]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\ClipSVC]
 "Start"=dword:00000003
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AppXSvc]
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\AppXSvc]
 "Start"=dword:00000003
 
