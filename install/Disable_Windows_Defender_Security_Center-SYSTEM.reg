@@ -1,34 +1,90 @@
 Windows Registry Editor Version 5.00
 
+; Start=4 means Disabled. Paths use ControlSet001 for offline hive merges.
+
+; Windows Security Service — UI / status tray only; kept disabled on purpose
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SecurityHealthService]
 "Start"=dword:00000004
 
+; Microsoft Defender for Endpoint Sensor (Sense) — EDR / advanced threat detection telemetry
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Sense]
 "Start"=dword:00000004
 
+; Microsoft Defender Antivirus Service — main antivirus engine (MsMpEng / real-time protection)
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WinDefend]
 "Start"=dword:00000004
 
+; Microsoft Defender Antivirus Boot Driver (ELAM) — early-boot driver that screens other boot drivers
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdBoot]
 "Start"=dword:00000004
 
+; Microsoft Defender Antivirus Mini-Filter Driver — on-access file-system malware scanning
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdFilter]
 "Start"=dword:00000004
 
+; Microsoft Defender Antivirus Network Inspection Service — inspects network traffic for exploits
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdNisSvc]
 "Start"=dword:00000004
 
+; Microsoft Defender Antivirus Network Inspection System Driver — kernel driver paired with WdNisSvc
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdNisDrv]
+"Start"=dword:00000004
+
+; Microsoft Defender Core Service — Defender platform core process (stability / antimalware core)
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MDCoreSvc]
+"Start"=dword:00000004
+
+; Microsoft Security Core — newer Win11 security platform component used by Defender stack
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MsSecCore]
+"Start"=dword:00000004
+
+; Microsoft Security Filter — security mini-filter in the newer Defender/security stack
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MsSecFlt]
+"Start"=dword:00000004
+
+; Microsoft Security WFP — Windows Filtering Platform callouts for the security stack
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MsSecWfp]
+"Start"=dword:00000004
+
+; Web Threat Defense Service — network/SmartScreen-related web threat protection
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\webthreatdefsvc]
+"Start"=dword:00000004
+
+; Web Threat Defense User Service — per-user web threat defense (may also exist as webthreatdefusersvc_*)
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\webthreatdefusersvc]
+"Start"=dword:00000004
+
+; System Guard Runtime Monitor Broker — attestation / System Guard integrity broker
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SgrmBroker]
+"Start"=dword:00000004
+
+; System Guard Runtime Monitor Agent — System Guard agent paired with SgrmBroker
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SgrmAgent]
+"Start"=dword:00000004
+
+; Windows Defender Firewall service — Start=2 Automatic (explicitly enabled)
+; Do not disable this service (breaks Start menu / Store / apps). Avast may manage
+; firewall profiles while this service stays running.
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\mpssvc]
+"Start"=dword:00000002
+
+; Security Center — kept disabled (Start=4) by choice; Avast may still protect, but
+; Windows Security Center status/registration UI can be stale or warn "no antivirus"
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wscsvc]
 "Start"=dword:00000004
 
+; Windows Update Medic Service — repairs/re-enables Windows Update components if they are broken
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WaaSMedicSvc]
 "Start"=dword:00000004
 
+; Windows Update — downloads and installs Windows updates and feature updates
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wuauserv]
 "Start"=dword:00000004
 
+; Microsoft Edge Update (client) — keeps Microsoft Edge and related updaters current
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\edgeupdate]
 "Start"=dword:00000004
 
+; Microsoft Edge Update (elevated/server) — elevated Edge updater that runs installers/patches
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\edgeupdatem]
 "Start"=dword:00000004

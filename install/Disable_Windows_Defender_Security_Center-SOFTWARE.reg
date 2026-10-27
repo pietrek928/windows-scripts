@@ -1,24 +1,118 @@
 Windows Registry Editor Version 5.00
 
+; Policy and SOFTWARE-hive tweaks for Defender / Update / Security Health.
+; Empty parent keys need a blank line between them so hivexregedit can create
+; each ancestor before the next.
+
+; ---------------------------------------------------------------------------
+; Windows Update policies
+; ---------------------------------------------------------------------------
+
+; Machine policy root (GPO-style overrides under Policies)
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies]
 
+; Microsoft product policies container
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft]
 
+; Windows component policies container
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows]
 
+; Windows Update policy root
+; DisableWindowsUpdateAccess=1 removes access to Windows Update UX features
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
+"DisableWindowsUpdateAccess"=dword:00000001
 
+; Automatic Updates policy — NoAutoUpdate=1 turns off automatic Windows Update
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
 "NoAutoUpdate"=dword:00000001
 
+; ---------------------------------------------------------------------------
+; SmartScreen (shell)
+; ---------------------------------------------------------------------------
+
+; Windows System policies — EnableSmartScreen=0 turns off Explorer SmartScreen
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
+"EnableSmartScreen"=dword:00000000
+
+; ---------------------------------------------------------------------------
+; Microsoft Defender Antivirus policies
+; ---------------------------------------------------------------------------
+
+; Microsoft Defender Antivirus master policy
+; DisableAntiSpyware/DisableAntiVirus=1 attempt to turn Defender off (legacy OEM/IT keys;
+; ignored on newer Defender platforms / Defender for Endpoint-onboarded devices)
+; DisableRoutinelyTakingAction=1 stops automatic threat remediation
+; ServiceKeepAlive=0 / AllowFastServiceStartup=0 reduce Defender service persistence
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
+"DisableRoutinelyTakingAction"=dword:00000001
+"ServiceKeepAlive"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
 
+; Policy TamperProtection=0 — secondary; the non-Policies Features key below is what
+; offline disables rely on for first boot (0/4=off, 1/5=on)
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Features]
 "TamperProtection"=dword:00000000
 
+; Real-time Protection policies (each =1 disables that check)
+; DisableRealtimeMonitoring — master "Turn off real-time protection"
+; DisableBehaviorMonitoring — stop behavioral / suspicious-activity monitoring
+; DisableOnAccessProtection — stop on-access file and program activity monitoring
+; DisableScanOnRealtimeEnable — stop scanning when real-time protection would run
+; DisableIOAVProtection — stop scanning downloaded files / attachments
+; DisableScriptScanning — stop script scanning
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection]
+"DisableRealtimeMonitoring"=dword:00000001
 "DisableBehaviorMonitoring"=dword:00000001
 "DisableOnAccessProtection"=dword:00000001
 "DisableScanOnRealtimeEnable"=dword:00000001
+"DisableIOAVProtection"=dword:00000001
+"DisableScriptScanning"=dword:00000001
+
+; MAPS / cloud sample submission (Spynet)
+; SpynetReporting=0 disables Microsoft MAPS cloud reporting
+; SubmitSamplesConsent=2 = never send samples
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet]
+"SpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
+
+; Scan schedule — ScheduleDay=8 means never run a scheduled scan (GPO equivalent)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan]
+"ScheduleDay"=dword:00000008
+
+; ---------------------------------------------------------------------------
+; Real Tamper Protection state (non-Policies) — required for offline disables
+; ---------------------------------------------------------------------------
+; This is the key NTLite-style offline packs set. Without it, if WinDefend is
+; ever re-enabled, Tamper Protection can come back as on (5) and block changes.
+; SOFTWARE\Microsoft\Windows Defender usually already exists on a real install.
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Features]
+"TamperProtection"=dword:00000000
+
+; ---------------------------------------------------------------------------
+; Remove SecurityHealth from machine Run (startup tray)
+; ---------------------------------------------------------------------------
+
+; Deletes the SecurityHealth startup value (SecurityHealthSystray.exe at logon)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+"SecurityHealth"=-
+
+; ---------------------------------------------------------------------------
+; Defender scheduled tasks (TaskCache Tree deletes)
+; ---------------------------------------------------------------------------
+; Removes Task Scheduler registrations for the four Windows Defender tasks.
+; Orphaned TaskCache\Tasks\{GUID} entries and System32\Tasks XML files may remain.
+; Tasks often recreate after reboot if WinDefend / related services stay enabled —
+; pair this SOFTWARE merge with the SYSTEM Defender service disables.
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Cleanup]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Verification]
