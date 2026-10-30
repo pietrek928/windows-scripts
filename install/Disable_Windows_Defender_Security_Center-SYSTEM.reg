@@ -73,13 +73,41 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wscsvc]
 "Start"=dword:00000004
 
-; Windows Update Medic Service — repairs/re-enables Windows Update components if they are broken
+; ---------------------------------------------------------------------------
+; Windows Update stack — Start=4 alone is not enough; also clear FailureActions
+; (no restart-on-fail) and delete Update Orchestrator / Medic TaskCache in SOFTWARE.reg
+; FailureActions blob = take no recovery action (common offline WU-disable packs)
+; ---------------------------------------------------------------------------
+
+; Windows Update Medic Service — repairs/re-enables Update components and tasks
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WaaSMedicSvc]
 "Start"=dword:00000004
+"FailureActions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,14,00,00,\
+  00,00,00,00,00,60,ea,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
 
-; Windows Update — downloads and installs Windows updates and feature updates
+; Windows Update — downloads and installs Windows updates
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wuauserv]
 "Start"=dword:00000004
+"FailureActions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,14,00,00,\
+  00,00,00,00,00,60,ea,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
+
+; Update Orchestrator Service — schedules/starts update work (often re-enables wuauserv)
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\UsoSvc]
+"Start"=dword:00000004
+"FailureActions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,14,00,00,\
+  00,00,00,00,00,60,ea,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
+
+; Update Health Service — Update Health / remediation helper
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\uhssvc]
+"Start"=dword:00000004
+"FailureActions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,14,00,00,\
+  00,00,00,00,00,60,ea,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
+
+; Background Intelligent Transfer Service — used by Windows Update downloads
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BITS]
+"Start"=dword:00000004
+"FailureActions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,14,00,00,\
+  00,00,00,00,00,60,ea,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
 
 ; Microsoft Edge Update (client) — keeps Microsoft Edge and related updaters current
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\edgeupdate]

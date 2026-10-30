@@ -116,3 +116,16 @@ Windows Registry Editor Version 5.00
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan]
 
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Verification]
+
+; ---------------------------------------------------------------------------
+; Windows Update scheduled tasks (TaskCache Tree deletes)
+; ---------------------------------------------------------------------------
+; Delete entire folders so version-specific / renamed child tasks are not missed.
+; These tasks re-enable/start wuauserv and UsoSvc after boot even when Start=4.
+; Pair with SYSTEM FailureActions + service disables. Orphan GUID/XML may remain.
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WaaSMedic]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate]

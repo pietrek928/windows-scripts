@@ -158,7 +158,7 @@ sudo hivexregedit --merge /mnt/Windows/System32/config/SYSTEM \
   install/Disable_Windows_Defender_Security_Center-SYSTEM.reg
 
 # SOFTWARE — Disable_Windows_Defender_Security_Center-SOFTWARE.reg
-# (policies, SecurityHealth Run delete, Defender TaskCache Tree deletes)
+# (policies, SecurityHealth Run delete, Defender + Windows Update TaskCache Tree deletes)
 sudo hivexregedit --merge /mnt/Windows/System32/config/SOFTWARE \
   --prefix 'HKEY_LOCAL_MACHINE\SOFTWARE' \
   install/Disable_Windows_Defender_Security_Center-SOFTWARE.reg
@@ -171,20 +171,69 @@ sudo hivexregedit --merge /mnt/Users/<Username>/NTUSER.DAT \
   install/explorer-settings.reg
 ```
 
-Defender TaskCache Tree deletes are in the SOFTWARE `.reg`. Orphaned
-`TaskCache\Tasks\{GUID}` entries and `System32\Tasks` XML may remain; tasks
-often recreate if WinDefend stays enabled — apply the Defender SYSTEM `.reg`
-as well.
+Defender and Windows Update TaskCache Tree deletes are in the SOFTWARE `.reg`.
+Orphaned `TaskCache\Tasks\{GUID}` entries and `System32\Tasks` XML may remain;
+tasks often recreate if related services stay enabled or after a Feature Update —
+apply the Defender SYSTEM `.reg` as well (see section 7).
 
 Apply Defender SYSTEM **after** `disable-services.reg` so `mpssvc` stays
-`Start=2` (Automatic). `disable-services.reg` still sets `mpssvc` to disabled.
+`Start=2` (Automatic) and so WU services (`UsoSvc`, `BITS`, `uhssvc`, …) get
+`Start=4` + FailureActions from the Defender SYSTEM pack.
+`disable-services.reg` still sets `mpssvc` to disabled and `BITS` to manual;
+the Defender SYSTEM merge overrides those for the offline WU disable.
 
 Success is usually silent (no Perl error traces about wrong hive / missing
 parents). Windows will read the updated hives on next boot.
 
 To undo: copy the `.bak` hive back over the original (while Windows is still offline).
 
-### 7. Tamper Protection and Avast
+### 7. Windows Update offline disable
+
+`NoAutoUpdate=1` alone does **not** stop update services from starting. On boot,
+Update Orchestrator / Medic scheduled tasks and service FailureActions can rewrite
+`Start` and bring `wuauserv` / `UsoSvc` back.
+
+The Defender SYSTEM + SOFTWARE pair therefore also sets:
+
+- **SYSTEM:** `wuauserv`, `WaaSMedicSvc`, `UsoSvc`, `uhssvc`, `BITS` → `Start=4`,
+  plus FailureActions “take no action” (no restart-on-fail)
+- **SOFTWARE:** deletes the entire TaskCache Tree folders
+  `UpdateOrchestrator`, `WaaSMedic`, and `WindowsUpdate` (not individual
+  children — avoids missing version-specific task names; Defender tasks stay
+  listed individually)
+- **SOFTWARE policies (already present):** `NoAutoUpdate=1`,
+  `DisableWindowsUpdateAccess=1`
+
+Prefer applying both Defender hive merges together so `UsoSvc` / `BITS` /
+`uhssvc` are not only covered by `disable-services.reg`.
+
+**Temporary re-enable (services.msc):** This pack stops *unattended*
+reenable-on-boot; it does not ACL-lock the SCM Start type.
+
+- `wuauserv`, `UsoSvc`, `BITS`, `uhssvc` can usually be set to Manual/Automatic
+  and started as admin. FailureActions and TaskCache deletes do **not** block that.
+- `WaaSMedicSvc` is often greyed out (TrustedInstaller ACL); Medic is not required
+  for a one-shot manual update.
+- Starting services alone is usually **not** enough while WU policies remain.
+- Background/scheduled auto-runs stay mostly off until Windows recreates the
+  deleted TaskCache trees (Feature Update / repair / reimport).
+
+Checklist for a temporary update session:
+
+1. In `services.msc` (or `sc config` / `sc start`): set `UsoSvc`, `BITS`,
+   `wuauserv` to Manual (and `uhssvc` if needed); start them.
+2. Temporarily clear WU policy blocks under
+   `HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate` — set
+   `DisableWindowsUpdateAccess` to `0` (or delete) and under `...\AU` set
+   `NoAutoUpdate` to `0` (or delete).
+3. Trigger update via Settings → Windows Update, or an Orchestrator kick
+   (e.g. `UsoClient.exe StartScan` where available).
+4. When done: stop the services, set Start back to Disabled (`4`), restore the
+   two policy DWORDs to `1` if you want the pack’s behavior again.
+5. Optional: leave Medic disabled; do not expect deleted TaskCache trees to
+   return until Windows recreates them.
+
+### 8. Tamper Protection and Avast
 
 **Tamper Protection:** Offline hive merges bypass live `WdFilter` registry
 callbacks. The pack sets both:
