@@ -109,6 +109,12 @@ Windows Registry Editor Version 5.00
 "FailureActions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,14,00,00,\
   00,00,00,00,00,60,ea,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
 
+; Delivery Optimization — peer/cloud delivery used by Windows Update downloads
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\DoSvc]
+"Start"=dword:00000004
+"FailureActions"=hex:00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,14,00,00,\
+  00,00,00,00,00,60,ea,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00
+
 ; Microsoft Edge Update (client) — keeps Microsoft Edge and related updaters current
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\edgeupdate]
 "Start"=dword:00000004

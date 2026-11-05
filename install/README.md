@@ -3,7 +3,7 @@
 ## TODO
 
 - remove 'Windows Defender'
-- `sc delete wuauserv` — only way to disable update ???
+- `sc delete wuauserv` — superseded by offline-wu-files.sh + Start=4 pack
 
 ## Apply `.reg` files from Linux (offline hive with hivex)
 
@@ -191,12 +191,14 @@ To undo: copy the `.bak` hive back over the original (while Windows is still off
 
 `NoAutoUpdate=1` alone does **not** stop update services from starting. On boot,
 Update Orchestrator / Medic scheduled tasks and service FailureActions can rewrite
-`Start` and bring `wuauserv` / `UsoSvc` back.
+`Start` and bring `wuauserv` / `UsoSvc` back. **`.reg` alone is often
+insufficient** — if update services still run after the hive merges, also run the
+offline file script below.
 
 The Defender SYSTEM + SOFTWARE pair therefore also sets:
 
-- **SYSTEM:** `wuauserv`, `WaaSMedicSvc`, `UsoSvc`, `uhssvc`, `BITS` → `Start=4`,
-  plus FailureActions “take no action” (no restart-on-fail)
+- **SYSTEM:** `wuauserv`, `WaaSMedicSvc`, `UsoSvc`, `uhssvc`, `BITS`, `DoSvc` →
+  `Start=4`, plus FailureActions “take no action” (no restart-on-fail)
 - **SOFTWARE:** deletes the entire TaskCache Tree folders
   `UpdateOrchestrator`, `WaaSMedic`, and `WindowsUpdate` (not individual
   children — avoids missing version-specific task names; Defender tasks stay
@@ -207,31 +209,63 @@ The Defender SYSTEM + SOFTWARE pair therefore also sets:
 Prefer applying both Defender hive merges together so `UsoSvc` / `BITS` /
 `uhssvc` are not only covered by `disable-services.reg`.
 
-**Temporary re-enable (services.msc):** This pack stops *unattended*
-reenable-on-boot; it does not ACL-lock the SCM Start type.
+#### Offline file rename (more robust)
+
+While Windows is shut down and the volume is mounted (same as hive merges), rename
+Medic / Update engine binaries and remove Update task XML so SCM cannot load them
+even if `Start` is restored:
+
+```bash
+sudo ./install/offline-wu-files.sh disable /mnt
+```
+
+- Renames `WaaSMedicSvc.dll`, `wuaueng.dll`, `UsoClient.exe` → `*.bak`
+- Copies then deletes
+  `Windows/System32/Tasks/Microsoft/Windows/{UpdateOrchestrator,WaaSMedic,WindowsUpdate}`
+  into `Windows/System32/Tasks.bak-wu/`
+- **Aborts** if any `*.bak` or `Tasks.bak-wu/` already exists (no clobber)
+
+```bash
+sudo ./install/offline-wu-files.sh enable /mnt   # restore from .bak / Tasks.bak-wu
+sudo ./install/offline-wu-files.sh clean /mnt    # if disable aborts after Windows restored files
+```
+
+`clean` drops stale `*.bak` / `Tasks.bak-wu` **only when the live original (or live
+task tree) is present**. Pure backup-only state (still file-disabled) is left alone.
+After `clean`, run `disable` again.
+
+SFC / DISM / Feature Updates can restore binaries and task XML — re-run `clean`
+then `disable` after major upgrades if needed. Defender signature delivery may
+then rely on Avast’s channel.
+
+**Temporary re-enable:** This pack stops *unattended* reenable-on-boot; it does
+not ACL-lock the SCM Start type.
 
 - `wuauserv`, `UsoSvc`, `BITS`, `uhssvc` can usually be set to Manual/Automatic
   and started as admin. FailureActions and TaskCache deletes do **not** block that.
 - `WaaSMedicSvc` is often greyed out (TrustedInstaller ACL); Medic is not required
   for a one-shot manual update.
-- Starting services alone is usually **not** enough while WU policies remain.
+- Starting services alone is usually **not** enough while WU policies remain, and
+  renamed binaries must be restored first (`offline-wu-files.sh enable`).
 - Background/scheduled auto-runs stay mostly off until Windows recreates the
-  deleted TaskCache trees (Feature Update / repair / reimport).
+  deleted TaskCache / task XML trees (Feature Update / repair / reimport).
 
 Checklist for a temporary update session:
 
-1. In `services.msc` (or `sc config` / `sc start`): set `UsoSvc`, `BITS`,
-   `wuauserv` to Manual (and `uhssvc` if needed); start them.
-2. Temporarily clear WU policy blocks under
+1. Offline (or after `enable` while still offline):  
+   `sudo ./install/offline-wu-files.sh enable /mnt`
+2. In `services.msc` (or `sc config` / `sc start`): set `UsoSvc`, `BITS`,
+   `wuauserv` to Manual (and `uhssvc` / `DoSvc` if needed); start them.
+3. Temporarily clear WU policy blocks under
    `HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate` — set
    `DisableWindowsUpdateAccess` to `0` (or delete) and under `...\AU` set
    `NoAutoUpdate` to `0` (or delete).
-3. Trigger update via Settings → Windows Update, or an Orchestrator kick
+4. Trigger update via Settings → Windows Update, or an Orchestrator kick
    (e.g. `UsoClient.exe StartScan` where available).
-4. When done: stop the services, set Start back to Disabled (`4`), restore the
-   two policy DWORDs to `1` if you want the pack’s behavior again.
-5. Optional: leave Medic disabled; do not expect deleted TaskCache trees to
-   return until Windows recreates them.
+5. When done: stop the services, set Start back to Disabled (`4`), restore the
+   two policy DWORDs to `1`, then offline again run
+   `sudo ./install/offline-wu-files.sh disable /mnt` (use `clean` first if it
+   aborts because Windows left both originals and `.bak`).
 
 ### 8. Tamper Protection and Avast
 
